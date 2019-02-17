@@ -7,28 +7,29 @@ var guesses = 9;
 var yoGuesses = [];
 
 
-document.onkeyup = function (event) {
+document.onkeyup = function(event) {
     var youPressed = event.key;
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    var computerGuess = randoNum[Math.floor(Math.random() * randoNum.length)];
 
-    var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+console.log('You pressed:' + youPressed);
+console.log('The computer guessed:' + computerGuess);
 
-    if (letters.indexOf(youPressed) > -1) {
         if (youPressed === computerGuess) {
             wins++;
-            // clear your guess counter & reset guesses
             guesses = 9;
             yoGuesses = [];
+            // This shit below isn't connecting to my HTML & I can't figure out why, but that's what I think my next step is.
+            // document.getElementById("Wins:").innerHTML = "Wins: " + wins;
         }
-        if (youPressed !== computerGuess) {
+        else if (youPressed !== computerGuess) {
             guesses--;
-            yoGuesses.unshift(yoGuesses);
+            yoGuesses.push(yoGuesses);
+            if (guesses < 1) {
+                loses++;
+                yoGuesses = [];
+            }
         }
-        if (guesses < -1) {
-            loses++;
-            yoGuesses = [];
-        }
-    }
+    
 }
 
 // generate a random letter
