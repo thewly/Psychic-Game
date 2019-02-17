@@ -7,12 +7,30 @@ var guesses = 9;
 var yoGuesses = [];
 
 
-for (var i = 0; i < 9; i++) {
-    console.log(i + 1);
-}
-// document.onkeyup = function(event) {
+document.onkeyup = function (event) {
+    var youPressed = event.key;
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-// }
+    var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+
+    if (letters.indexOf(youPressed) > -1) {
+        if (youPressed === computerGuess) {
+            wins++;
+            // clear your guess counter & reset guesses
+            guesses = 9;
+            yoGuesses = [];
+        }
+        if (youPressed !== computerGuess) {
+            guesses--;
+            yoGuesses.unshift(yoGuesses);
+        }
+        if (guesses < -1) {
+            loses++;
+            yoGuesses = [];
+        }
+    }
+}
+
 // generate a random letter
 // prompt user to have them guess the letter
 // check to see if it is correct
