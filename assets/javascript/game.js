@@ -7,34 +7,35 @@ var guesses = 9;
 var yoGuesses = [];
 
 
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
     var youPressed = event.key;
     var computerGuess = randoNum[Math.floor(Math.random() * randoNum.length)];
 
-console.log('You pressed:' + youPressed);
-console.log('The computer guessed:' + computerGuess);
+    console.log('You pressed:' + youPressed);
+    console.log('The computer guessed:' + computerGuess);
 
-        if (youPressed === computerGuess) {
-            wins++;
-            guesses = 9;
+    if (youPressed === computerGuess) {
+        wins++;
+        guesses = 9;
+        yoGuesses = [];
+        document.getElementById("wins").innerHTML = "Wins: " + wins;
+    }
+    else if (youPressed !== computerGuess) {
+        // Reduce guess count
+        guesses--;
+        yoGuesses.push(" " + youPressed); // abc, d
+        // Determine the value of guess
+        // If 0, then do stuff
+        if (guesses === 0) {
+            // Reset guesses, reset guess to 9, display info
             yoGuesses = [];
-            // This shit below isn't connecting to my HTML & I can't figure out why, but that's what I think my next step is.
-            // document.getElementById("Wins:").innerHTML = "Wins: " + wins;
+            guesses = 9;
+            loses++;
         }
-        else if (youPressed !== computerGuess) {
-            guesses--;
-            yoGuesses.push(yoGuesses);
-            if (guesses < 1) {
-                loses++;
-                yoGuesses = [];
-            }
-        }
-    
+        console.log('yoGuesses: ' + yoGuesses);
+        document.getElementById("guesses").innerHTML = "Guesses left: " + guesses;
+        document.getElementById("yourFailures").innerHTML = "Your guesses so far: " + yoGuesses;
+        document.getElementById("losses").innerHTML = "Losses: " + loses;
+    }
+    // Display
 }
-
-// generate a random letter
-// prompt user to have them guess the letter
-// check to see if it is correct
-// check to see if letter is correct
-// if letter is wrong, allow user to try again. Repeat until they win, or are out of attempts
-// start over once someone wins or loses
